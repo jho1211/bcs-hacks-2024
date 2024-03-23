@@ -1,0 +1,9 @@
+{
+  "name": "bcs-hacks-24-frontend",
+  "version": "1.0.0",
+  "description": "BCS Hackathon 2024 Project Frontend",
+  "main": "index.js",
+  "repository": "git+https://github.com/jho1211/bcs-hacks-2024.git",
+  "author": "Jeffrey Ho, Kyle Nguyen, Leo Kim, Andrew Park",
+  "license": "UBC"
+}
