@@ -1,25 +1,37 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+// import GroceryList from './components/GroceryList';
+import Dropdown from './components/Dropdown';
 
 function App() {
+
+
+  // const [grocery, setGrocery] = useState([]);
+  // const [input, setInput] = useState('');
+
+  // function handleClick() {
+  //   // get the value 
+  //   const updatedList = grocery.concat(input);
+  //   // add value to grocerylist 
+  //   setGrocery(updatedList);
+  //   // clear value 
+  //   setInput('');
+  // }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {/* <GroceryList data  ={grocery}/> */}
+        <Dropdown/>
+        {/* <input value={input} onChange={(e) => setInput(e.target.value)}
+        ></input> */}
+        {/* <button onClick={handleClick}>
+          Add to list
+        </button> */}
       </header>
     </div>
   );
 }
+
 
 export default App;
