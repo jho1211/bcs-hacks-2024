@@ -1,6 +1,104 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+function fetchGroceryItemPrices(data) {
+    if (data.length == 0) {
+        return;
+    }
+    
+    let url = "https://ozfhk0stlj.execute-api.us-west-2.amazonaws.com/dev/prices?";
+    for (var i = 0; i < data.length; i++) {
+        if (i == 0) {
+            url = url + "input=" + data[i];
+        } else {
+            url = url + "&input=" + data[i];
+        }
+    }
+    fetch(url)
+    .then(resp => resp.json())
+    .then(data => handleResponse(data))
+    .catch(err => {
+        console.log("There was an error while fetching prices: ", err);
+    })
+}
+
+function handleResponse(response) {
+    console.log(response);
+    for (var i = 0; i < response.length; i++) {
+        var items = response[i];
+        if (items.length == 0) {
+            continue;
+        }
+        const save_on_items = items.filter((item) => item.store === "Save on Foods");
+        const no_frills_items = items.filter((item) => item.store === "No Frills");
+    
+        let save_on_price = averagePrice(save_on_items);
+        let no_frills_price = averagePrice(no_frills_items);
+    
+        if (save_on_price >= no_frills_price) {
+            insertRow({"name": items[0].input_name, "price": save_on_price, "store": "Save on Foods"});
+        } else {
+            insertRow({"name": items[0].input_name, "price": no_frills_price, "store": "No Frills"});
+        }
+    }
+    console.log("Item prices were read successfully");
+}
+
+function averagePrice(items) {
+    let sum = 0;
+    for (var i = 0; i < items.length; i++) {
+        let price = items[i].price
+        
+        if (price != undefined) {
+            price = parseFloat(price.substring(1));
+        } else {
+            price = items[i].price_per_unit;
+            price = parseFloat(price);
+        }
+
+        sum += price;
+    }
+    if (items.length == 0) {
+        return 0;
+    } else {
+        return Math.round(sum / items.length * 100) / 100;
+    }
+}
+
+function insertRow(item) {
+    const newRow = document.createElement("tr");
+    const newCell = newRow.insertCell(-1);
+    newCell.innerText = item["name"];
+    const newCell2 = newRow.insertCell(-1);
+    newCell2.innerText = item["store"];
+    const newCell3 = newRow.insertCell(-1);
+    newCell3.innerText = "$" + item["price"];
+    const tbody = document.getElementById("itemsTableBody");
+    tbody.append(newRow);
+
+    recalculateTotal(item["price"]);
+}
+
+function recalculateTotal(price) {
+    const totalPriceCell = document.getElementById("totalPriceCell");
+    let curPrice = parseFloat(totalPriceCell.innerText.substring(1));
+    curPrice += price;
+    curPrice = Math.round(curPrice * 100) / 100
+    totalPriceCell.innerText = "$" + curPrice;
+}
+
+function generateDatalistItems() {
+    const items_list = ["Eggs", "Milk", "Bread", "Chicken breast", "Ground beef", "Rice", "Pasta", 
+    "Apple", "Banana", "Orange", "Potato", "Cracker", "Lettuce", 
+    "Cheese", "Yogurt", "Peanut butter", "Cereal", "Chips", "Coffee", "Canola oil"]
+    const groceryDataList = document.getElementById("groceryDataList");
+    items_list.forEach((item) => {
+        var option = document.createElement("option");
+        option.value = item;
+        groceryDataList.appendChild(option);
+    })
+}
+
 const Login = (props) => {
     const [profileID, setProfileID] = useState("");
     const [profileIDError, setProfileIDError] = useState("");
@@ -53,7 +151,11 @@ const Login = (props) => {
                 props.setLoggedIn(true);
                 props.setProfileID(profileID);
                 props.setItems(data.items);
+                fetchGroceryItemPrices(data.items);
                 callback(true);
+            })
+            .then(() => {
+                fetchGroceryItemPrices(items);
             })
             .catch(error => {
                 console.error(error);
