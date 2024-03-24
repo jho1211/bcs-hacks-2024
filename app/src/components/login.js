@@ -87,18 +87,6 @@ function recalculateTotal(price) {
     totalPriceCell.innerText = "$" + curPrice;
 }
 
-function generateDatalistItems() {
-    const items_list = ["Eggs", "Milk", "Bread", "Chicken breast", "Ground beef", "Rice", "Pasta", 
-    "Apple", "Banana", "Orange", "Potato", "Cracker", "Lettuce", 
-    "Cheese", "Yogurt", "Peanut butter", "Cereal", "Chips", "Coffee", "Canola oil"]
-    const groceryDataList = document.getElementById("groceryDataList");
-    items_list.forEach((item) => {
-        var option = document.createElement("option");
-        option.value = item;
-        groceryDataList.appendChild(option);
-    })
-}
-
 const Login = (props) => {
     const [profileID, setProfileID] = useState("");
     const [profileIDError, setProfileIDError] = useState("");
@@ -106,9 +94,27 @@ const Login = (props) => {
     const navigate = useNavigate();
 
     const CreateAccount = (profileID) => {
-        props.setItems([]);
-        props.setLoggedIn(true);
-        props.setProfileID(profileID);
+        const body = JSON.stringify({"id": profileID})
+        console.log(body);
+        fetch("https://ozfhk0stlj.execute-api.us-west-2.amazonaws.com/dev/users", {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: body
+        })
+            .then(response => {
+                if (response.ok) {
+                    props.setLoggedIn(true);
+                    props.setProfileID(profileID);
+                    props.setItems([]);
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                // callback(false);
+            });
+        // props.setItems([]);
+        // props.setLoggedIn(true);
+        // props.setProfileID(profileID);
         navigate("/");
     };
 
