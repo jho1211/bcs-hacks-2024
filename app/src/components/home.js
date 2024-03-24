@@ -33,13 +33,33 @@ const Home = (props) => {
             {(loggedIn ?
                     <div>
                         {items.length > 0 && (
+                            <div id="tableDiv">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Item Name</th>
+                                        <th scope="col">Store</th>
+                                        <th scope="col">Average Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="itemsTableBody">
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colSpan="2"><b>Total Price:</b></td>
+                                        <td id="totalPriceCell">$0.00</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
                             <div>
-                                <h2>Items:</h2>
-                                <ul>
-                                    {items.map((item, index) => (
-                                        <li key={index}>{item}</li>
-                                    ))}
-                                </ul>
+                                <label htmlFor="grocery-list-choice">Add a New Item:</label>
+                                <input list="groceryItems" id="grocery-list-choice" name="grocery-list-choice" 
+                                placeholder="Select an item" />
+                    
+                                <datalist id="groceryItems">
+                                </datalist>
+                    
+                            </div>
                             </div>
                         )}
                     </div>
