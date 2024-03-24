@@ -30,7 +30,7 @@ const Login = (props) => {
                 navigate("/");
             } else {
                 if (window.confirm("An account does not exist with this ID: " + profileID + ". " +
-                    "Would you like to make a new profile with the given number?")) {
+                    "Would you like to make a new profile with the inputted number?")) {
                     CreateAccount(profileID);
                 }
             }
@@ -63,25 +63,25 @@ const Login = (props) => {
 
     return <div className={"mainContainer"}>
         <div className={"titleContainer"}>
-            <div>Enter Profile ID</div>
+            <div>Get Started</div>
         </div>
         <br />
         <div className={"inputContainer"}>
             <input
                 value={profileID}
-                placeholder="Enter your ID here"
+                placeholder="Enter your Profile ID here"
                 onChange={ev => setProfileID(ev.target.value)}
                 className={"inputBox"} />
             {/*<br />*/}
             <label className="errorLabel">{profileIDError}</label>
         </div>
         <br />
-        <div className={"inputContainer"}>
+        <div className={"buttonContainer"}>
             <input
                 className={"inputButton"}
                 type="button"
                 onClick={onButtonClickLogIn}
-                value={"Log in with ID"} />
+                value={"Log in with / Create ID"} />
         </div>
     </div>
 }

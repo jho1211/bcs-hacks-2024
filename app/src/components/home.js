@@ -7,7 +7,7 @@ const Home = (props) => {
 
     const onButtonClick = () => {
         if (loggedIn) {
-            localStorage.removeItem("user")
+            // Implement PUT to store profileID and item list to database
             props.setLoggedIn(false)
         } else {
             navigate("/login")
@@ -21,17 +21,17 @@ const Home = (props) => {
             <div>Grocery Store Price Tracker</div>
         </div>
         <div>
-            Powered by React.
+            {loggedIn ? `Current profile ID: ${profileID}` : 'Powered by React.'}
         </div>
+        <br />
         <div className={"buttonContainer"}>
             <input
                 className={"inputButton"}
                 type="button"
                 onClick={onButtonClick}
-                value={loggedIn ? "Log out" : "Log in"} />
+                value={loggedIn ? "Log out and Save" : "Continue"} />
             {(loggedIn ?
                     <div>
-                        Your profile ID is {profileID}
                         {items.length > 0 && (
                             <div>
                                 <h2>Items:</h2>
