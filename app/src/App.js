@@ -1,37 +1,40 @@
-import React from 'react';
+import React, {useState} from 'react';
+import GroceryList from './components/GroceryList';
 import './App.css';
-// import GroceryList from './components/GroceryList';
-import Dropdown from './components/Dropdown';
 
 function App() {
+  const data = ['A', 'B', 'C'];
 
+  const [item, setItem] = useState('');
+  const [grocery, setGrocery] = useState([]);
 
-  // const [grocery, setGrocery] = useState([]);
-  // const [input, setInput] = useState('');
-
-  // function handleClick() {
-  //   // get the value 
-  //   const updatedList = grocery.concat(input);
-  //   // add value to grocerylist 
-  //   setGrocery(updatedList);
-  //   // clear value 
-  //   setInput('');
-  // }
+  function handleGroceryItems() {
+    console.log(item);
+    console.log(typeof item);
+    if (grocery.includes(item) || item === '') {
+      setItem('');
+    } else {
+    const updatedList = grocery.concat(item);
+    setGrocery(updatedList);
+    console.log(updatedList);
+    setItem('');
+    }
+  }
 
   return (
     <div className="App">
       <header className="App-header">
-        {/* <GroceryList data  ={grocery}/> */}
-        <Dropdown/>
-        {/* <input value={input} onChange={(e) => setInput(e.target.value)}
-        ></input> */}
-        {/* <button onClick={handleClick}>
-          Add to list
-        </button> */}
+        <select onChange={(e) => setItem(e.target.value)} >
+          {data.map((e) => <option>{e}</option>)}
+        </select>
+        <GroceryList data={grocery}/>
+        <button onClick={handleGroceryItems}>
+          Add Items
+        </button>
+       
       </header>
     </div>
   );
 }
-
 
 export default App;
