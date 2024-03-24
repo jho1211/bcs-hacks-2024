@@ -1,38 +1,95 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #eb7c7a; /* Set background color of the window */
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  height: 100vh; /* Take up the entire height of the viewport */
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  background-color:#F7CAC9; /* Slightly lighter color than the background */
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 80%; /* Take up 80% of the width of the window */
+  max-width: 600px; /* Maximum width of the header */
+}
+
+
+.App-header select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd; /* Light gray */
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: white;
+}
+
+.App-header select:focus {
+  outline: none;
+  border-color: #66afe9; /* Sky blue */
+  box-shadow: 0 0 5px #66afe9; /* Sky blue */
+}
+
+.select-box {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd; /* Light gray */
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: white;
+}
+
+.select-box:focus {
+  outline: none;
+  border-color: #66afe9; /* Sky blue */
+  box-shadow: 0 0 5px #66afe9; /* Sky blue */
+}
+
+.option-item {
+  padding: 5px 10px;
+}
+
+.grocery-list {
+  font-family: Arial, sans-serif;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+.delete-button {
+  background-color: #ff6347; /* Tomato */
   color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-left: 10px; /* Add more spacing beside the delete buttons */
 }
 
-.App-link {
-  color: #61dafb;
+.delete-button:hover {
+  background-color: #d9534f; /* Red */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.add-button {
+  background-color: #5cb85c; /* Green */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.add-button:hover {
+  background-color: #4cae4c; /* Dark green */
 }
