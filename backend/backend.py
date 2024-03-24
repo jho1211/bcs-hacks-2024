@@ -1,3 +1,11 @@
+import json
+import os
+from pymongo import MongoClient
+
+client = MongoClient(host=os.environ.get("ATLAS_URI"))
+# Name of collection
+db = client.grocery.grocery_lists
+
 def register_id(user_id):
     ## Registers a new grocery list with the given user_id
     if db.find_one({"id": user_id}) is None:
