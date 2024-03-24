@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Grocery Price Tracker</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+  </head>
+  <body>
+    <main>
+        <h1>Grocery List (ID: 1233445)</h1>  
+    </main>
+    <div id="tableDiv">
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Item Name</th>
+                    <th scope="col">Store</th>
+                    <th scope="col">Average Price</th>
+                </tr>
+            </thead>
+            <tbody id="itemsTableBody">
+            </tbody>
+            <tfoot>
+                <td colspan="2"><b>Total Price:</b></td>
+                <td id="totalPriceCell">$0.00</td>
+            </tfoot>
+        </table>
+    </div>
+    <div style="margin-top: 30px">
+        <label for="grocery-list-choice">Add a New Item:</label>
+        <input list="groceryItems" id="grocery-list-choice" name="grocery-list-choice" placeholder="Select an item" />
+
+        <datalist id="groceryItems" style="overflow-y: hidden;">
+        </datalist>
+
+    </div>
+	<script src="index.js"></script>
+  </body>
+</html>
