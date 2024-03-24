@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 const Login = (props) => {
     const [profileID, setProfileID] = useState("");
     const [profileIDError, setProfileIDError] = useState("");
+    const [items, setItems] = useState([]);
     const navigate = useNavigate();
 
     const CreateAccount = () => {
@@ -24,9 +25,10 @@ const Login = (props) => {
             return;
         }
 
+        console.log("Before Checking if account exists");
         checkAccountExists(accountExists => {
             if (accountExists) {
-                logIn();
+                navigate("/");
             } else {
                 if (window.confirm("An account does not exist with this ID: " + profileID + ". Would you like to make a new profile?")) {
                     CreateAccount();
@@ -36,33 +38,30 @@ const Login = (props) => {
     };
 
     const checkAccountExists = (callback) => {
-        fetch("https://ozfhk0stlj.execute-api.us-west-2.amazonaws.com/dev/users", {
-            method: "POST",
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({profileID})
-        })
-            .then(response => response.json())
-            .then(response => {
-                callback(response?.userExists)
-            })
-    };
+        const proxyUrl = 'https://cors.bridged.cc/';
+        const apiUrl = `https://ozfhk0stlj.execute-api.us-west-2.amazonaws.com/dev/users?id=${profileID}`;
 
-    const logIn = () => {
-        fetch("https://ozfhk0stlj.execute-api.us-west-2.amazonaws.com/dev/users", {
-            method: "POST",
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({profileID})
+        fetch(proxyUrl + apiUrl, {
+            method: "GET",
+            headers: {'Content-Type': 'application/json'}
         })
-            .then(response => response.json())
             .then(response => {
-                if ('success' === response.message) {
-                    // Fetch the grocery list from database under profile ID and set it to the list here on the app
-                    // localStorage.setItem("user", JSON.stringify({profileID, token: r.token}))
-                    props.setLoggedIn(true);
-                    props.setProfileID(profileID);
-                    navigate("/");
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
                 }
+                return response.json();
             })
+            .then(data => {
+                console.log(data.items);
+                props.setLoggedIn(true);
+                props.setProfileID(profileID);
+                props.setItems(items);
+                callback(data?.items);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+                callback(false);
+            });
     };
 
     return <div className={"mainContainer"}>

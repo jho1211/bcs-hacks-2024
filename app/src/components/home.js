@@ -2,7 +2,7 @@ import React from "react"
 import { useNavigate } from "react-router-dom";
 
 const Home = (props) => {
-    const { loggedIn, profileID } = props;
+    const { loggedIn, profileID, items } = props;
     const navigate = useNavigate();
 
     const onButtonClick = () => {
@@ -29,11 +29,25 @@ const Home = (props) => {
                 type="button"
                 onClick={onButtonClick}
                 value={loggedIn ? "Log out" : "Log in"} />
-            {(loggedIn ? <div>
-                Your profile ID is {profileID}
-            </div> : <div/>)}
+            {(loggedIn ?
+                    <div>
+                        Your profile ID is {profileID}
+                        {items.length > 0 && (
+                            <div>
+                                <h2>Items:</h2>
+                                <ul>
+                                    {items.map((item, index) => (
+                                        <li key={index}>{item}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+                    </div>
+                    :
+                    <div/>
+            )}
         </div>
-    </div>
+    </div>;
 }
 
 export default Home

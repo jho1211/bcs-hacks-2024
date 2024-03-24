@@ -7,6 +7,7 @@ import Login from './components/login';
 function App() {
     const [profileID, setProfileID] = useState("")
     const [loggedIn, setLoggedIn] = useState(false)
+    const [items, setItems] = useState([]);
 
     useEffect(() => {
         // Fetch the profileID and token from local storage
@@ -37,10 +38,10 @@ function App() {
                 <Routes>
                     <Route
                         path="/"
-                        element={<Home profileID={profileID} loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>} />
+                        element={<Home profileID={profileID} loggedIn={loggedIn} items={items} setLoggedIn={setLoggedIn}/>} />
                     <Route
                         path="/login"
-                        element={<Login setLoggedIn={setLoggedIn} setProfileID={setProfileID} />} />
+                        element={<Login setLoggedIn={setLoggedIn} setProfileID={setProfileID} setItems={setItems} />} />
                 </Routes>
             </BrowserRouter>
         </div>
