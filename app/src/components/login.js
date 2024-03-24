@@ -8,6 +8,7 @@ const Login = (props) => {
     const navigate = useNavigate();
 
     const CreateAccount = (profileID) => {
+        props.setItems([]);
         props.setLoggedIn(true);
         props.setProfileID(profileID);
         navigate("/");
@@ -42,11 +43,8 @@ const Login = (props) => {
             headers: {'Content-Type': 'application/json'}
         })
             .then(response => {
-                console.log(response);
-                console.log("hello");
                 if (!response.ok) {
-                    console.log("OUCH");
-                    throw new Error('Network response was not ok');
+                    throw new Error('ProfileID nonexistent');
                 }
                 return response.json();
             })
@@ -54,11 +52,11 @@ const Login = (props) => {
                 console.log(data.items);
                 props.setLoggedIn(true);
                 props.setProfileID(profileID);
-                props.setItems(items);
+                props.setItems(data.items);
                 callback(true);
             })
             .catch(error => {
-                console.error('Damn:', error);
+                console.error(error);
                 callback(false);
             });
     };
