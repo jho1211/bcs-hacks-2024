@@ -184,3 +184,5 @@ for term in terms:
         print(term)
         prices = get_item_price(store, term, False, False)
         save_to_db(prices)
+
+driver.quit()
