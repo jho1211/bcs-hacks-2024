@@ -7,7 +7,7 @@ import Login from './components/login';
 function App() {
     const [profileID, setProfileID] = useState("")
     const [loggedIn, setLoggedIn] = useState(false)
-    const [items, setItems] = useState([]);
+    const [items, setItems] = useState(["Hello World"]);
 
     useEffect(() => {
         // Fetch the profileID and token from local storage

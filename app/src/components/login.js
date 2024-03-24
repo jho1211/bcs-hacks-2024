@@ -7,9 +7,7 @@ const Login = (props) => {
     const [items, setItems] = useState([]);
     const navigate = useNavigate();
 
-    const CreateAccount = () => {
-        const profileID = 10;
-        // Do random number generator here while checking if unique ID from database
+    const CreateAccount = (profileID) => {
         props.setLoggedIn(true);
         props.setProfileID(profileID);
         navigate("/");
@@ -30,23 +28,24 @@ const Login = (props) => {
             if (accountExists) {
                 navigate("/");
             } else {
-                if (window.confirm("An account does not exist with this ID: " + profileID + ". Would you like to make a new profile?")) {
-                    CreateAccount();
+                if (window.confirm("An account does not exist with this ID: " + profileID + ". " +
+                    "Would you like to make a new profile with the given number?")) {
+                    CreateAccount(profileID);
                 }
             }
         });
     };
 
     const checkAccountExists = (callback) => {
-        const proxyUrl = 'https://cors.bridged.cc/';
-        const apiUrl = `https://ozfhk0stlj.execute-api.us-west-2.amazonaws.com/dev/users?id=${profileID}`;
-
-        fetch(proxyUrl + apiUrl, {
+        fetch(`https://ozfhk0stlj.execute-api.us-west-2.amazonaws.com/dev/users?id=${profileID}`, {
             method: "GET",
             headers: {'Content-Type': 'application/json'}
         })
             .then(response => {
+                console.log(response);
+                console.log("hello");
                 if (!response.ok) {
+                    console.log("OUCH");
                     throw new Error('Network response was not ok');
                 }
                 return response.json();
@@ -56,10 +55,10 @@ const Login = (props) => {
                 props.setLoggedIn(true);
                 props.setProfileID(profileID);
                 props.setItems(items);
-                callback(data?.items);
+                callback(true);
             })
             .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
+                console.error('Damn:', error);
                 callback(false);
             });
     };
@@ -85,14 +84,6 @@ const Login = (props) => {
                 type="button"
                 onClick={onButtonClickLogIn}
                 value={"Log in with ID"} />
-        </div>
-        <br />
-        <div className={"inputContainer"}>
-            <input
-                className={"inputButton"}
-                type="button"
-                onClick={CreateAccount}
-                value={"Create New ID"} />
         </div>
     </div>
 }

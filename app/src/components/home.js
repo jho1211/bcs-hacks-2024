@@ -18,7 +18,7 @@ const Home = (props) => {
     // Reference: https://react.dev/learn
     return <div className="mainContainer">
         <div className={"titleContainer"}>
-            <div>Welcome to the grocery list tracker app!</div>
+            <div>Grocery Store Price Tracker</div>
         </div>
         <div>
             Powered by React.
