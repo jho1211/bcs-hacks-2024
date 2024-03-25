@@ -52,4 +52,3 @@ This Grocery Store Price Tracker offers a streamlined way to manage grocery list
 Contributions are welcome! Please fork the repository and submit pull requests with any enhancements or bug fixes.
 
 ## License
-[MIT License](LICENSE)
