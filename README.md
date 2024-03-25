@@ -53,7 +53,3 @@ Contributions are welcome! Please fork the repository and submit pull requests w
 
 ## License
 [MIT License](LICENSE)
-
----
-
-This template provides a general overview and starting instructions for your project. You'll need to replace `<repository-url>` with the actual URL of your GitHub repository and customize the environment variable and deployment instructions according to your project's specific setup.
